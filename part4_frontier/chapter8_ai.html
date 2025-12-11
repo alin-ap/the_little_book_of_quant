@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-c34f75c1.js";
+            window.path_to_searchindex_js = "../searchindex-ec9ba38d.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-9afa0663.js"></script>
+        <script src="../toc-703f22ae.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -181,23 +181,6 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="第-8-章ai-革命transformer-与-mamba"><a class="header" href="#第-8-章ai-革命transformer-与-mamba">第 8 章：AI 革命：Transformer 与 Mamba</a></h1>
-<blockquote>
-<p><strong>核心原则</strong>：我们预测的是“超额收益 / 风险调整后的收益”，不是裸的涨跌幅。</p>
-<p>前沿研究通常先剥离掉市场、行业、风格等系统性因子，然后对残差收益做预测，或者直接在“无套利约束”下估计 SDF（随机折现因子）。</p>
-</blockquote>
-<h2 id="1-武器库升级lstm-已死transformer-当立"><a class="header" href="#1-武器库升级lstm-已死transformer-当立">1. 武器库升级：LSTM 已死，Transformer 当立</a></h2>
-<h3 id="现状-the-problem"><a class="header" href="#现状-the-problem">现状 (The Problem)</a></h3>
-<p><strong>LSTM (Long Short-Term Memory)</strong> 曾经是时序王道，但现在面临两大瓶颈：</p>
-<ol>
-<li><strong>串行计算慢</strong>：无法充分利用 GPU 并行加速。</li>
-<li><strong>“长记忆”能力差</strong>：虽然理论上能记忆，但实际很难有效利用 60 天甚至更久之前的信息 (Vanishing Gradient 问题)。</li>
-</ol>
-<h3 id="sota-方案-the-solution"><a class="header" href="#sota-方案-the-solution">SOTA 方案 (The Solution)</a></h3>
-<p><strong>Transformer 家族 (PatchTST, iTransformer)</strong> 或 <strong>Mamba (状态空间模型)</strong> 正在接管战场。</p>
-<ul>
-<li><strong>核心优势</strong>：这些模型能像理解自然语言一样理解 K 线序列，捕捉长周期的动量/反转信号。</li>
-<li><strong>对比</strong>：这是传统树模型 (LightGBM/XGBoost) 难以做到的，因为树模型不擅长处理时序依赖。</li>
-</ul>
 
                     </main>
 

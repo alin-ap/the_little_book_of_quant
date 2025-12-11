@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-c34f75c1.js";
+            window.path_to_searchindex_js = "../searchindex-ec9ba38d.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-9afa0663.js"></script>
+        <script src="../toc-703f22ae.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -181,23 +181,6 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="第-9-章图神经网络-gnn"><a class="header" href="#第-9-章图神经网络-gnn">第 9 章：图神经网络 (GNN)</a></h1>
-<h2 id="1-视角升级引入图的概念-graph-learning"><a class="header" href="#1-视角升级引入图的概念-graph-learning">1. 视角升级：引入“图”的概念 (Graph Learning)</a></h2>
-<h3 id="现状-the-problem"><a class="header" href="#现状-the-problem">现状 (The Problem)</a></h3>
-<p>传统的量化模型（无论是线性回归还是 LightGBM）通常隐含一个假设：<strong>股票是独立的 (I.I.D. assumption)</strong>。
-即：A 股票涨不涨，跟 B 股票没关系。</p>
-<p>但现实显然不是这样。</p>
-<h3 id="sota-方案-the-solution"><a class="header" href="#sota-方案-the-solution">SOTA 方案 (The Solution)</a></h3>
-<p><strong>图神经网络 (GNN)</strong> 是目前 Alpha 挖掘的蓝海。</p>
-<ul>
-<li><strong>核心逻辑</strong>：产业链传导。例如，英伟达 (Nvidia) 涨了，光模块板块大概率会跟涨。你的旧模型看不见这种关系，因为它只盯着个股自己的 K 线。</li>
-<li><strong>做法</strong>：
-<ol>
-<li><strong>构建图谱</strong>：构建股票关系图谱（节点是股票，边是产业链关系、股权关系、行业同属关系等）。</li>
-<li><strong>信号传播</strong>：使用 <strong>GAT (Graph Attention Networks)</strong> 让 Alpha 信号在图上传播。</li>
-<li><strong>捕捉轮动</strong>：借此捕捉板块轮动和供应链传导带来的滞后收益。</li>
-</ol>
-</li>
-</ul>
 
                     </main>
 

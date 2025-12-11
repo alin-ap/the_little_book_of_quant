@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-c34f75c1.js";
+            window.path_to_searchindex_js = "searchindex-ec9ba38d.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-9afa0663.js"></script>
+        <script src="toc-703f22ae.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -209,9 +209,22 @@
 <li>它告诉大家：<strong>“收益是可以被拆解的”</strong>。这直接开启了后来华尔街的“多因子选股”时代。现在的 AQR、贝莱德等量化巨头，底层逻辑都源于此。</li>
 </ul>
 </li>
-<li><strong>第三阶段（现代）：因子动物园 (Factor Zoo) &amp; AI</strong>
+<li><strong>第三阶段（现代）：因子动物园 (Factor Zoo) (2000s - 2015)</strong>
 <ul>
-<li>现在人们发现了成百上千个因子，并开始用机器学习/深度学习来挖掘非线性关系。</li>
+<li>随着计算机普及，学术界发现了成百上千个因子（Cochrane 称之为“因子动物园”）。</li>
+<li>此时仍以<strong>线性模型</strong>（Linear Regression）和<strong>人工逻辑</strong>为主。</li>
+</ul>
+</li>
+<li><strong>阶段 3.5（进阶）：机器学习挖掘 (Machine Learning) (2015 - 2020)</strong>
+<ul>
+<li><strong>逻辑升级</strong>：因子还是那些因子，但组合方式变了。</li>
+<li>引入 XGBoost/LightGBM 等树模型，挖掘因子之间的<strong>非线性关系</strong>（比如：只有在波动率低的时候，动量因子才有效）。</li>
+</ul>
+</li>
+<li><strong>阶段 4.0（前沿）：深度学习端到端预测 (Deep Learning) (2020 - Now)</strong>
+<ul>
+<li><strong>范式转移</strong>：不再依赖人工构造因子，直接把原始数据（K线、Tick、新闻）喂给模型。</li>
+<li>核心技术：Transformer、LSTM、GNN。模型自己学会提取特征（Representation Learning）。</li>
 </ul>
 </li>
 </ul>
@@ -233,49 +246,6 @@
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="第-2-章多空对冲逻辑"><a class="header" href="#第-2-章多空对冲逻辑">第 2 章：多空对冲逻辑</a></h1>
-<h2 id="fama-french-因子计算方法"><a class="header" href="#fama-french-因子计算方法">Fama-French 因子计算方法</a></h2>
-<p>这些因子不是直接从股票软件里看的一个指标，而是通过**“构建多空对冲组合”**算出来的。</p>
-<p>逻辑是：<strong>买入表现强的一组，卖空表现弱的一组，两者收益的差值，就是这个因子的收益。</strong></p>
-<p>为了计算准确，通常采用 <strong>2x3 分组法</strong>（把所有股票切两刀）：</p>
-<h3 id="1-切蛋糕-分组"><a class="header" href="#1-切蛋糕-分组">1. 切蛋糕 (分组)</a></h3>
-<ol>
-<li><strong>按市值 (Size) 切一刀：</strong> 把全市场股票按市值排序，中间切开。
-<ul>
-<li><strong>S (Small):</strong> 小市值组</li>
-<li><strong>B (Big):</strong> 大市值组</li>
-</ul>
-</li>
-<li><strong>按账面市值比 (B/M) 切两刀：</strong> 把股票按“账面市值比”（衡量价值）分成三份。
-<ul>
-<li><strong>H (High):</strong> 价值股（便宜）</li>
-<li><strong>M (Medium):</strong> 中间</li>
-<li><strong>L (Low):</strong> 成长股（贵）</li>
-</ul>
-</li>
-</ol>
-<p>这样交叉组合，我们就得到了 2x3 = <strong>6 个投资组合</strong>（比如“小盘价值股”、“大盘成长股”等）。</p>
-<h3 id="2-算因子-做减法"><a class="header" href="#2-算因子-做减法">2. 算因子 (做减法)</a></h3>
-<ul>
-<li><strong>1. 市场因子 (Mkt-RF):</strong>
-<ul>
-<li><code>全市场回报率</code> - <code>无风险利率(如国债收益率)</code></li>
-</ul>
-</li>
-<li><strong>2. 规模因子 (SMB - Small Minus Big):</strong>
-<ul>
-<li>逻辑：做多小盘股，做空大盘股。</li>
-<li><em>计算：(3个小盘组合的平均收益) - (3个大盘组合的平均收益)</em></li>
-<li>$$SMB = \frac{1}{3}(Small Value + Small Neutral + Small Growth) - \frac{1}{3}(Big Value + Big Neutral + Big Growth)$$</li>
-</ul>
-</li>
-<li><strong>3. 价值因子 (HML - High Minus Low):</strong>
-<ul>
-<li>逻辑：做多高账面市值比（价值股），做空低账面市值比（成长股）。</li>
-<li><em>计算：(2个价值组的平均收益) - (2个成长组的平均收益)</em></li>
-<li>$$HML = \frac{1}{2}(Small Value + Big Value) - \frac{1}{2}(Small Growth + Big Growth)$$</li>
-</ul>
-</li>
-</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="第二部分因子工厂-the-factor-factory"><a class="header" href="#第二部分因子工厂-the-factor-factory">第二部分：因子工厂 (The Factor Factory)</a></h1>
 <p>量化不仅仅是数学公式，更是庞大的系统工程。本部分将带你走进“工厂”内部，看一看流水线是如何运作的。</p>
@@ -470,25 +440,11 @@
 <li>不同市场环境测试</li>
 <li>数据扰动测试</li>
 </ul>
-<h2 id="6-优化与文档-optimization--docs"><a class="header" href="#6-优化与文档-optimization--docs">6. 优化与文档 (Optimization &amp; Docs)</a></h2>
-<h3 id="动态调整机制"><a class="header" href="#动态调整机制">动态调整机制</a></h3>
-<ul>
-<li>自适应权重调整</li>
-<li>时变参数模型</li>
-<li>在线学习模型</li>
-<li>市场环境感知机制</li>
-</ul>
-<h3 id="文档记录"><a class="header" href="#文档记录">文档记录</a></h3>
-<ul>
-<li><strong>研究文档</strong>：研究假设与理论基础、因子设计逻辑与实现细节、参数选择依据。</li>
-<li><strong>结果报告</strong>：因子表现概览、关键统计数据、视觉化图表、风险收益特性总结。</li>
-<li><strong>迭代记录</strong>：问题跟踪、改进点记录、模型版本对比。</li>
-</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="第三部分因子军火库-the-factor-zoo"><a class="header" href="#第三部分因子军火库-the-factor-zoo">第三部分：因子军火库 (The Factor Zoo)</a></h1>
 <p>这里陈列着数百种因子武器。我们将它们分门别类，详细拆解其背后的金融逻辑。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="第-5-章量价因子-technical"><a class="header" href="#第-5-章量价因子-technical">第 5 章：量价因子 (Technical)</a></h1>
+<h1 id="第-5-章时序因子-time-series"><a class="header" href="#第-5-章时序因子-time-series">第 5 章：时序因子 (Time Series)</a></h1>
 <h2 id="1-市场趋势market-trend-量价轴-1"><a class="header" href="#1-市场趋势market-trend-量价轴-1">1. 市场趋势（Market Trend）—— 量价轴 1</a></h2>
 <h3 id="涵盖因子"><a class="header" href="#涵盖因子">涵盖因子</a></h3>
 <ul>
@@ -501,7 +457,7 @@
 <blockquote>
 <p><strong>“这只股票最近在市场上的相对表现是强还是弱？”</strong></p>
 </blockquote>
-<p>完全来自量价因子，不掺任何基本面。</p>
+<p>完全来自时序因子，不掺任何基本面。</p>
 <h2 id="2-风险与流动性risk--liquidity-量价轴-2"><a class="header" href="#2-风险与流动性risk--liquidity-量价轴-2">2. 风险与流动性（Risk &amp; Liquidity）—— 量价轴 2</a></h2>
 <h3 id="涵盖因子-1"><a class="header" href="#涵盖因子-1">涵盖因子</a></h3>
 <ul>
@@ -616,42 +572,8 @@
 <p>这里是 AI 与金融的交汇点。我们将探讨当今最先进的深度学习模型如何重塑量化投资。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="第-8-章ai-革命transformer-与-mamba"><a class="header" href="#第-8-章ai-革命transformer-与-mamba">第 8 章：AI 革命：Transformer 与 Mamba</a></h1>
-<blockquote>
-<p><strong>核心原则</strong>：我们预测的是“超额收益 / 风险调整后的收益”，不是裸的涨跌幅。</p>
-<p>前沿研究通常先剥离掉市场、行业、风格等系统性因子，然后对残差收益做预测，或者直接在“无套利约束”下估计 SDF（随机折现因子）。</p>
-</blockquote>
-<h2 id="1-武器库升级lstm-已死transformer-当立"><a class="header" href="#1-武器库升级lstm-已死transformer-当立">1. 武器库升级：LSTM 已死，Transformer 当立</a></h2>
-<h3 id="现状-the-problem"><a class="header" href="#现状-the-problem">现状 (The Problem)</a></h3>
-<p><strong>LSTM (Long Short-Term Memory)</strong> 曾经是时序王道，但现在面临两大瓶颈：</p>
-<ol>
-<li><strong>串行计算慢</strong>：无法充分利用 GPU 并行加速。</li>
-<li><strong>“长记忆”能力差</strong>：虽然理论上能记忆，但实际很难有效利用 60 天甚至更久之前的信息 (Vanishing Gradient 问题)。</li>
-</ol>
-<h3 id="sota-方案-the-solution"><a class="header" href="#sota-方案-the-solution">SOTA 方案 (The Solution)</a></h3>
-<p><strong>Transformer 家族 (PatchTST, iTransformer)</strong> 或 <strong>Mamba (状态空间模型)</strong> 正在接管战场。</p>
-<ul>
-<li><strong>核心优势</strong>：这些模型能像理解自然语言一样理解 K 线序列，捕捉长周期的动量/反转信号。</li>
-<li><strong>对比</strong>：这是传统树模型 (LightGBM/XGBoost) 难以做到的，因为树模型不擅长处理时序依赖。</li>
-</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="第-9-章图神经网络-gnn"><a class="header" href="#第-9-章图神经网络-gnn">第 9 章：图神经网络 (GNN)</a></h1>
-<h2 id="1-视角升级引入图的概念-graph-learning"><a class="header" href="#1-视角升级引入图的概念-graph-learning">1. 视角升级：引入“图”的概念 (Graph Learning)</a></h2>
-<h3 id="现状-the-problem-1"><a class="header" href="#现状-the-problem-1">现状 (The Problem)</a></h3>
-<p>传统的量化模型（无论是线性回归还是 LightGBM）通常隐含一个假设：<strong>股票是独立的 (I.I.D. assumption)</strong>。
-即：A 股票涨不涨，跟 B 股票没关系。</p>
-<p>但现实显然不是这样。</p>
-<h3 id="sota-方案-the-solution-1"><a class="header" href="#sota-方案-the-solution-1">SOTA 方案 (The Solution)</a></h3>
-<p><strong>图神经网络 (GNN)</strong> 是目前 Alpha 挖掘的蓝海。</p>
-<ul>
-<li><strong>核心逻辑</strong>：产业链传导。例如，英伟达 (Nvidia) 涨了，光模块板块大概率会跟涨。你的旧模型看不见这种关系，因为它只盯着个股自己的 K 线。</li>
-<li><strong>做法</strong>：
-<ol>
-<li><strong>构建图谱</strong>：构建股票关系图谱（节点是股票，边是产业链关系、股权关系、行业同属关系等）。</li>
-<li><strong>信号传播</strong>：使用 <strong>GAT (Graph Attention Networks)</strong> 让 Alpha 信号在图上传播。</li>
-<li><strong>捕捉轮动</strong>：借此捕捉板块轮动和供应链传导带来的滞后收益。</li>
-</ol>
-</li>
-</ul>
 
                     </main>
 
