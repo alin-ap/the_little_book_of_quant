@@ -11,7 +11,7 @@
     - [第 4 章：研发生命周期](part2_factory/chapter4_lifecycle.md)
 
 - [第三部分：因子军火库](part3_zoo/README.md)
-    - [第 5 章：量价因子 (Technical)](part3_zoo/chapter5_technical.md)
+    - [第 5 章：时序因子 (Time Series)](part3_zoo/chapter5_time_series.md)
     - [第 6 章：基本面因子 (Fundamental)](part3_zoo/chapter6_fundamental.md)
     - [第 7 章：另类因子 (Alternative)](part3_zoo/chapter7_alternative.md)
 
