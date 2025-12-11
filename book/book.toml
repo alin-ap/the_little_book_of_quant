@@ -1,0 +1,10 @@
+[book]
+authors = ["Quantitative Researcher"]
+language = "zh"
+src = "src"
+title = "量化实战手册：从因子挖掘到 AI 交易"
+
+[output.html]
+git-repository-url = "https://github.com/yourname/quant-book"
+edit-url-template = "https://github.com/yourname/quant-book/edit/master/{path}"
+site-url = "/quant-book/"
