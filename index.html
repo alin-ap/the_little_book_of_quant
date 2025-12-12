@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-ec9ba38d.js";
+            window.path_to_searchindex_js = "searchindex-5f7fa1ca.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-703f22ae.js"></script>
+        <script src="toc-437e01b5.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -180,23 +180,65 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="前言"><a class="header" href="#前言">前言</a></h1>
-<p>欢迎阅读 <strong>《量化实战手册：从因子挖掘到 AI 交易》</strong>。</p>
-<p>这本书旨在构建一个从经典理论到现代工程实践，再到前沿 AI 技术的完整量化知识体系。无论你是刚入门的宽客，还是寻求技术突破的资深从业者，这里都有你需要的弹药。</p>
-<h2 id="本书结构"><a class="header" href="#本书结构">本书结构</a></h2>
+                        <h1 id="第-1-章量化简史"><a class="header" href="#第-1-章量化简史">第 1 章：量化简史</a></h1>
+<h2 id="1-量化的启蒙阶段"><a class="header" href="#1-量化的启蒙阶段">1. 量化的“启蒙阶段”</a></h2>
+<p><strong>这绝对是现代量化投资（Factor Investing）的基石。</strong></p>
+<p>我们可以把量化金融的发展简单划分为三个阶段，Fama-French 处于承上启下的关键位置：</p>
 <ul>
-<li><strong>第一部分：量化之道</strong> - 回溯量化金融的历史，理解多空对冲的底层逻辑。</li>
-<li><strong>第二部分：因子工厂</strong> - 深入工程实践，掌握从数据清洗到回测归因的全套流水线。</li>
-<li><strong>第三部分：因子军火库</strong> - 系统梳理量价、基本面与另类因子。</li>
-<li><strong>第四部分：前沿战法</strong> - 探索 Transformer、Mamba 与 GNN 在量化中的应用。</li>
+<li><strong>第一阶段（史前）：CAPM 模型 (1960s)</strong>
+<ul>
+<li>那时人们认为：股票只有一个风险来源——<strong>大盘（Beta）</strong>。</li>
+<li>量化思维：很粗糙，甚至算不上真正的量化。</li>
 </ul>
+</li>
+<li><strong>第二阶段（启蒙/爆发）：Fama-French (1992/1993)</strong>
+<ul>
+<li><strong>划时代意义：</strong> 他们通过处理海量历史数据，证明了收益不仅仅来自大盘，还来自<strong>风格（因子）</strong>。</li>
+<li>它告诉大家：<strong>“收益是可以被拆解的”</strong>。这直接开启了后来华尔街的“多因子选股”时代。现在的 AQR、贝莱德等量化巨头，底层逻辑都源于此。</li>
+</ul>
+</li>
+<li><strong>第三阶段（现代）：因子动物园 (Factor Zoo) (2000s - 2015)</strong>
+<ul>
+<li>随着计算机普及，学术界发现了成百上千个因子（Cochrane 称之为“因子动物园”）。</li>
+<li>此时仍以<strong>线性模型</strong>（Linear Regression）和<strong>人工逻辑</strong>为主。</li>
+</ul>
+</li>
+<li><strong>阶段 3.5（进阶）：机器学习挖掘 (Machine Learning) (2015 - 2020)</strong>
+<ul>
+<li><strong>逻辑升级</strong>：因子还是那些因子，但组合方式变了。</li>
+<li>引入 XGBoost/LightGBM 等树模型，挖掘因子之间的<strong>非线性关系</strong>（比如：只有在波动率低的时候，动量因子才有效）。</li>
+</ul>
+</li>
+<li><strong>阶段 4.0（前沿）：深度学习端到端预测 (Deep Learning) (2020 - Now)</strong>
+<ul>
+<li><strong>范式转移</strong>：不再依赖人工构造因子，直接把原始数据（K线、Tick、新闻）喂给模型。</li>
+<li>核心技术：Transformer、LSTM、GNN。模型自己学会提取特征（Representation Learning）。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-演化之路"><a class="header" href="#2-演化之路">2. 演化之路</a></h2>
+<p>三因子模型虽然经典，但它也存在解释力不足的问题。后来的演化主要有两条路：</p>
+<ol>
+<li><strong>加上“动量” (Momentum) —— 变为四因子 (1997)</strong>
+<ul>
+<li><strong>Mark Carhart</strong> 发现，Fama-French 解释不了“追涨杀跌”的现象（过去涨得好的股票，未来一段时间往往继续涨）。</li>
+<li>于是加入了 <strong>MOM (Momentum)</strong> 因子，构成了 <strong>Carhart 四因子模型</strong>。这是目前很多学术研究和基金评价的标准模型。</li>
+</ul>
+</li>
+<li><strong>Fama 和 French 自己打补丁 —— 变为五因子 (2015)</strong>
+<ul>
+<li>Fama 和 French 发现，有些公司虽然小、虽然便宜，但就是不涨。为什么？因为它们<strong>盈利能力差</strong>或者<strong>盲目扩张</strong>。</li>
+<li>于是加入了 <strong>RMW (盈利能力)</strong> 和 <strong>CMA (投资风格)</strong>。</li>
+</ul>
+</li>
+</ol>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
 
-                            <a rel="next prefetch" href="part1_tao/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="philosophy/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -207,7 +249,7 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
 
-                    <a rel="next prefetch" href="part1_tao/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="philosophy/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
