@@ -8,7 +8,7 @@ class MDBookSidebarScrollbox extends HTMLElement {
         super();
     }
     connectedCallback() {
-        this.innerHTML = '<ol class="chapter"><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="index.html">前言</a></span></li><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="philosophy/index.html"><strong aria-hidden="true">1.</strong> 量化之道</a></span><ol class="section"><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="philosophy/history.html"><strong aria-hidden="true">1.1.</strong> 量化简史</a></span></li></ol><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="engineering/index.html"><strong aria-hidden="true">2.</strong> 工程架构</a></span><ol class="section"><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="engineering/architecture.html"><strong aria-hidden="true">2.1.</strong> 系统设计</a></span></li><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="engineering/lifecycle.html"><strong aria-hidden="true">2.2.</strong> 研发生命周期</a></span></li></ol><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="factors/index.html"><strong aria-hidden="true">3.</strong> 因子军火库</a></span><ol class="section"><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="factors/time_series.html"><strong aria-hidden="true">3.1.</strong> 时序因子 (Time Series)</a></span></li><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="factors/fundamental.html"><strong aria-hidden="true">3.2.</strong> 基本面因子 (Fundamental)</a></span></li><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="factors/alternative.html"><strong aria-hidden="true">3.3.</strong> 另类因子 (Alternative)</a></span></li></ol><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="ai_frontier/index.html"><strong aria-hidden="true">4.</strong> AI 前沿</a></span><ol class="section"><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="ai_frontier/transformer.html"><strong aria-hidden="true">4.1.</strong> Transformer 与 Mamba</a></span></li><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="ai_frontier/gnn.html"><strong aria-hidden="true">4.2.</strong> 图神经网络 (GNN)</a></span></li></ol></li></ol>';
+        this.innerHTML = '<ol class="chapter"><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="index.html">前言</a></span></li><li class="chapter-item expanded "><span class="chapter-link-wrapper"><span><strong aria-hidden="true">1.</strong> 数据</span></span><ol class="section"><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="1_data_is_all_you_need/Ch2_fundamental.html"><strong aria-hidden="true">1.1.</strong> 基本面因子 (Fundamental)</a></span></li><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="1_data_is_all_you_need/Ch3_time_series.html"><strong aria-hidden="true">1.2.</strong> 时序因子 (Time Series)</a></span></li><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="1_data_is_all_you_need/Ch4_alternative.html"><strong aria-hidden="true">1.3.</strong> 另类因子 (Alternative)</a></span></li></ol><li class="chapter-item expanded "><span class="chapter-link-wrapper"><span><strong aria-hidden="true">2.</strong> 信噪</span></span><ol class="section"><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="2_the_model_core/Ch3_gnn.html"><strong aria-hidden="true">2.1.</strong> 图神经网络 (GNN)</a></span></li><li class="chapter-item expanded "><span class="chapter-link-wrapper"><a href="2_the_model_core/Ch4_transformer.html"><strong aria-hidden="true">2.2.</strong> Transformer 与 Mamba</a></span></li></ol><li class="chapter-item expanded "><span class="chapter-link-wrapper"><span><strong aria-hidden="true">3.</strong> 天机</span></span></li><li class="chapter-item expanded "><span class="chapter-link-wrapper"><span><strong aria-hidden="true">4.</strong> 入局</span></span></li></ol>';
         // Set the current, active page, and reveal it if it's hidden
         let current_page = document.location.href.toString().split('#')[0].split('?')[0];
         if (current_page.endsWith('/')) {
@@ -40,14 +40,22 @@ class MDBookSidebarScrollbox extends HTMLElement {
         // Track and set sidebar scroll position
         this.addEventListener('click', e => {
             if (e.target.tagName === 'A') {
-                sessionStorage.setItem('sidebar-scroll', this.scrollTop);
+                const clientRect = e.target.getBoundingClientRect();
+                const sidebarRect = this.getBoundingClientRect();
+                sessionStorage.setItem('sidebar-scroll-offset', clientRect.top - sidebarRect.top);
             }
         }, { passive: true });
-        const sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-        sessionStorage.removeItem('sidebar-scroll');
-        if (sidebarScrollTop) {
+        const sidebarScrollOffset = sessionStorage.getItem('sidebar-scroll-offset');
+        sessionStorage.removeItem('sidebar-scroll-offset');
+        if (sidebarScrollOffset !== null) {
             // preserve sidebar scroll position when navigating via links within sidebar
-            this.scrollTop = sidebarScrollTop;
+            const activeSection = this.querySelector('.active');
+            if (activeSection) {
+                const clientRect = activeSection.getBoundingClientRect();
+                const sidebarRect = this.getBoundingClientRect();
+                const currentOffset = clientRect.top - sidebarRect.top;
+                this.scrollTop += currentOffset - parseFloat(sidebarScrollOffset);
+            }
         } else {
             // scroll sidebar to current active section when navigating via
             // 'next/previous chapter' buttons
