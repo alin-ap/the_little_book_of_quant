@@ -2,18 +2,14 @@
 
 [前言](README.md)
 
-- [量化之道](philosophy/README.md)
-    - [量化简史](philosophy/history.md)
+- [数据](1_data_is_all_you_need)
+    - [基本面因子 (Fundamental)](1_data_is_all_you_need/Ch2_fundamental.md)
+    - [时序因子 (Time Series)](1_data_is_all_you_need/Ch3_time_series.md)
+    - [另类因子 (Alternative)](1_data_is_all_you_need/Ch4_alternative.md)
 
-- [工程架构](engineering/README.md)
-    - [系统设计](engineering/architecture.md)
-    - [研发生命周期](engineering/lifecycle.md)
+- [信噪](2_signals_in_the_noise)
+    - [图神经网络 (GNN)](2_the_model_core/Ch3_gnn.md)
+    - [Transformer 与 Mamba](2_the_model_core/Ch4_transformer.md)
 
-- [因子军火库](factors/README.md)
-    - [时序因子 (Time Series)](factors/time_series.md)
-    - [基本面因子 (Fundamental)](factors/fundamental.md)
-    - [另类因子 (Alternative)](factors/alternative.md)
-
-- [AI 前沿](ai_frontier/README.md)
-    - [Transformer 与 Mamba](ai_frontier/transformer.md)
-    - [图神经网络 (GNN)](ai_frontier/gnn.md)
+- [天机](3_models_learn_the_truth)
+- [入局](4_skin_in_the_game)
